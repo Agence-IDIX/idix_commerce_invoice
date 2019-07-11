@@ -1,0 +1,17 @@
+{
+  "name": "idix/idix_commerce_invoice",
+  "type": "drupal-custom-module",
+  "description": "Factures drupal commerce IDIX",
+  "keywords": ["Drupal", "commerce", "invoices"],
+  "authors": [
+    {
+      "name": "Nicolas Bugeja",
+      "email": "nicolas.bugeja@idix.fr",
+      "role": "Maintainer"
+    }
+  ],
+  "require": {
+    "drupal/core": "8.*",
+    "drupal/commerce": "2.*"
+  }
+}

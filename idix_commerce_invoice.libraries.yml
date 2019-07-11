@@ -1,0 +1,4 @@
+commerce_invoice:
+  css:
+    theme:
+      css/commerce_invoice.css: {}

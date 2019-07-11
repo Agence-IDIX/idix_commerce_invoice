@@ -1,0 +1,152 @@
+<div class="container">
+    <div class="header">
+        <div class="logo-wrapper">
+            <table>
+                <tr>
+                    <td>
+                        {# <img width="285" height="83" src="//www.femininbio.com/sites/femininbio.com/themes/femininbio/img/logo.png" alt="Femininbio"/>#}
+                        {% block store_logo %}
+                        {% endblock %}
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="name">{{ order_entity.getStore.label }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ order_entity.getStore.address.address_line1 }}</td>
+                            </tr>
+                            {% if order_entity.getStore.address.address_line2 != '' %}
+                                <tr>
+                                    <td>{{ order_entity.getStore.address.address_line2 }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td>{{ order_entity.getStore.address.postal_code }} {{ order_entity.getStore.address.locality }}<br><br></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="numFacture-wrapper">
+            <table>
+                <tr>
+                    <td class="facture">Facture N° :</td>
+                    <td class="facture">{{ order_entity.getOrderNumber }}</td>
+                </tr>
+                <tr>
+                    <td>commande du</td>
+                    <td>{{ order_entity.placed.value|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <td>commande N° :</td>
+                    <td>{{ order_entity.getOrderNumber }}</td>
+                </tr>
+            </table>
+
+
+        </div>
+    </div><!-- header -->
+    <div class="address-wrapper">
+        {% if billing_information %}
+            <div class="address-facturation">
+                <table>
+                    <thead>
+                    <tr>
+                        <td>Adresse de facturation</td>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {{ billing_information }}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+        {% if shipping_information %}
+            <div class="address-livraison">
+                <table>
+                    <thead>
+                    <tr>
+                        <td>Adresse de livraison</td>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {{ shipping_information }}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+    </div>
+
+    <div class="tabFacture-wrapper">
+        <table>
+            <thead>
+            <tr>
+
+                <td class="libelle">Libellé</td>
+                <td class="quantite">qté</td>
+                <td class="puPublicTTC">Prix unitaire ttc</td>
+
+                <td class="totalTTC">Total TTC</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order_item in order_entity.getItems %}
+                {% block one_item %}
+                <tr>
+                    <td class="libelle">{{ order_item.label }}</td>
+                    <td class="quantite">{{ order_item.getQuantity|number_format }}</td>
+                    <td class="puPublicTTC">{{ order_item.getUnitPrice|commerce_price_format }}</td>
+                    <td class="totalTTC">{{ order_item.getTotalPrice|commerce_price_format }}</td>
+                </tr>
+                {% endblock %}
+            {% endfor %}
+
+            <tr class="footer1">
+                <td colspan="2">Mode de paiement : {{ order_entity.payment_gateway.entity.label }}</td>
+
+                <td class="port_name"></td>
+                <td class="port_value"></td>
+            </tr>
+            <tr class="footer2">
+                <td colspan="2">
+                    <span class="tva"></span>
+                </td>
+                <td class="totalTTC_name">Sous-total</td>
+                <td class="totalTTC_value">{{ totals.subtotal|commerce_price_format }}</td>
+            </tr>
+            {% for adjustment in totals.adjustments %}
+            <tr class="footer2 {% if loop.index % 2 == 0 %}even{% else %}odd{% endif %}">
+                <td colspan="2">
+                    <span class="tva"></span>
+                </td>
+                <td class="totalTTC_name">dont {{ adjustment.label }}</td>
+                <td class="totalTTC_value">{{ adjustment.total|commerce_price_format }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="footer2">
+                <td colspan="2">
+                    <span class="tva"></span>
+                </td>
+                <td class="totalTTC_name">TOTAL TTC</td>
+                <td class="totalTTC_value">{{ order_entity.getTotalPrice|commerce_price_format }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    {% block signature %}
+    {#<div class="signature">
+        Avec nos remerciements,<br/><br/>
+        FemininBio S.A.S.<br/>
+        33-35 rue de Chazelles 75017 Paris - France<br/>
+        S.A.S. au capital de 7 996 € - SIRET: 495 144 511 00039 - R.C.S. Nanterre<br/>
+        Code APE : 6202A - N° TVA intra-communautaire : FR86495144511<br/>
+    </div>#}
+    {% endblock %}
+</div>

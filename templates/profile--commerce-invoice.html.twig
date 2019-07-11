@@ -1,0 +1,39 @@
+<tr>
+    <td class="padding-top">{% spaceless %}
+        {% if address.given_name or address.family_name %}
+            {% if address.family_name %}{{ address.family_name|upper }}{% endif %}
+            {{ ' ' }}
+            {% if address.given_name %}{{ address.given_name }}{% endif %}
+        {% else %}
+            {{ profile_user.field_civilite.fieldDefinition.fieldStorageDefinition.settings.allowed_values[profile_user.field_civilite.value] ~ ' ' ~ profile_user.field_lastname.value|upper ~ ' ' ~ profile_user.field_firstname.value }}
+        {% endif %}
+    {% endspaceless %}</td>
+</tr>
+{% if address.organization %}
+<tr>
+    <td>{{ address.organization }}</td>
+</tr>
+{% endif %}
+{% if address.address_line1 %}
+<tr>
+    <td>{{ address.address_line1 }}</td>
+</tr>
+{% endif %}
+{% if address.address_line2 %}
+<tr>
+    <td>{{ address.address_line2 }}</td>
+</tr>
+{% endif %}
+{% if address.dependent_locality.code %}
+<tr>
+    <td>{{ address.dependent_locality.code }}</td>
+</tr>
+{% endif %}
+{% if address.locality or address.postal_code or address.administrative_area %}
+<tr>
+    <td>{{ address.locality }} {{ address.postal_code }} {{ address.administrative_area }}</td>
+</tr>
+{% endif %}
+<tr>
+    <td class="padding-bottom">{{ countries[address.country_code] }}</td>
+</tr>

@@ -1,0 +1,8 @@
+name: IDIX Commerce Invoice
+type: module
+description: 'Module de génération de factures imprimables pour Commerce'
+package: IDIX
+core: 8.x
+
+dependencies:
+  - commerce

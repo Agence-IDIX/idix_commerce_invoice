@@ -1,0 +1,4 @@
+view all invoices:
+  title: 'Voir toutes les factures'
+  description: "Donne accès à toutes les factures"
+  restrict access: true

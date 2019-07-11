@@ -1,0 +1,10 @@
+idix_commerce_invoice.invoice:
+  path: '/facture/{order}'
+  defaults:
+    _controller: '\Drupal\idix_commerce_invoice\Controller\InvoiceController::view'
+  requirements:
+    _custom_access: '\Drupal\idix_commerce_invoice\Access\InvoiceAccess::check'
+  options:
+    parameters:
+      order:
+        type: entity:commerce_order
