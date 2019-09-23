@@ -50,36 +50,40 @@
         </div>
     </div><!-- header -->
     <div class="address-wrapper">
-        {% if billing_information %}
-            <div class="address-facturation">
-                <table>
-                    <thead>
-                    <tr>
-                        <td>Adresse de facturation</td>
-                    </tr>
-                    </thead>
+        {% block billing %}
+            {% if billing_information %}
+                <div class="address-facturation">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>Adresse de facturation</td>
+                        </tr>
+                        </thead>
 
-                    <tbody>
-                    {{ billing_information }}
-                    </tbody>
-                </table>
-            </div>
-        {% endif %}
-        {% if shipping_information %}
-            <div class="address-livraison">
-                <table>
-                    <thead>
-                    <tr>
-                        <td>Adresse de livraison</td>
-                    </tr>
-                    </thead>
+                        <tbody>
+                        {{ billing_information }}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        {% endblock %}
+        {% block shipping %}
+            {% if shipping_information %}
+                <div class="address-livraison">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>Adresse de livraison</td>
+                        </tr>
+                        </thead>
 
-                    <tbody>
-                    {{ shipping_information }}
-                    </tbody>
-                </table>
-            </div>
-        {% endif %}
+                        <tbody>
+                        {{ shipping_information }}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        {% endblock %}
 
     </div>
 
