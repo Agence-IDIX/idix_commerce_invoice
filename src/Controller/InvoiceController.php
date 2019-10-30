@@ -66,4 +66,26 @@ class InvoiceController extends ControllerBase {
 
   }
 
+    public function html2pdf(Order $order) {
+        $build = [
+            '#theme' => 'commerce_order_invoice',
+            '#order_entity' => $order,
+            '#totals' => $this->orderTotalSummary->buildTotals($order),
+        ];
+        if ($billing_profile = $order->getBillingProfile()) {
+            $build['#billing_information'] = $this->profileViewBuilder->view($billing_profile, 'commerce_invoice');
+        }
+
+        $build['#attached']['library'] = ['idix_commerce_invoice/commerce_invoice'];
+
+        $html = \Drupal::service('renderer')->renderPlain($build);
+
+        $mpdf = new \Mpdf\Mpdf(['tempDir' => 'sites/default/files/tmp']);
+        $stylesheet = '<style>'.file_get_contents(__DIR__.'/../../css/commerce_invoice_pdf.css').'</style>';
+
+        $mpdf->WriteHTML($stylesheet,1);
+        $mpdf->WriteHTML($html,2);
+        $mpdf->Output($order->getOrderNumber().".pdf", "D");
+    }
+
 }

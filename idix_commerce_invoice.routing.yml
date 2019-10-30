@@ -8,3 +8,15 @@ idix_commerce_invoice.invoice:
     parameters:
       order:
         type: entity:commerce_order
+
+idix_commerce_invoice.getpdf:
+  path: '/facture/{order}/pdf'
+  defaults:
+    _controller: '\Drupal\idix_commerce_invoice\Controller\InvoiceController::html2pdf'
+    _title: 'Générer un PDF'
+  options:
+    parameters:
+      order:
+        type: entity:commerce_order
+  requirements:
+    _permission: 'access pdf'
