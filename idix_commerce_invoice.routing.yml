@@ -9,7 +9,7 @@ idix_commerce_invoice.invoice:
       order:
         type: entity:commerce_order
 
-idix_commerce_invoice.getpdf:
+idix_commerce_invoice.html2pdf:
   path: '/facture/{order}/pdf'
   defaults:
     _controller: '\Drupal\idix_commerce_invoice\Controller\InvoiceController::html2pdf'

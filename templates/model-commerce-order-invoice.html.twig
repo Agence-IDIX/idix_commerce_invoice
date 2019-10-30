@@ -129,7 +129,7 @@
                 <td colspan="2">
                     <span class="tva"></span>
                 </td>
-                <td class="totalTTC_name">dont {{ adjustment.label }}</td>
+                <td class="totalTTC_name">{% if adjustment.label == 'Discount' %}Réduction Commerciale{% else %}dont {{ adjustment.label }} {% endif %}</td>
                 <td class="totalTTC_value">{{ adjustment.total|commerce_price_format }}</td>
             </tr>
             {% endfor %}
