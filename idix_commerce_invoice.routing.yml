@@ -14,9 +14,9 @@ idix_commerce_invoice.html2pdf:
   defaults:
     _controller: '\Drupal\idix_commerce_invoice\Controller\InvoiceController::html2pdf'
     _title: 'Générer un PDF'
+  requirements:
+    _custom_access: '\Drupal\idix_commerce_invoice\Access\InvoiceAccess::check'
   options:
     parameters:
       order:
         type: entity:commerce_order
-  requirements:
-    _permission: 'access pdf'
